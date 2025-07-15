@@ -1,7 +1,7 @@
 package com.moove.controller;
 
 
-import com.moove.model.Property;
+import com.moove.entity.Property;
 import com.moove.service.PropertyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -35,10 +35,7 @@ public class PropertyController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    @GetMapping("/store/{storeId}")
-    public ResponseEntity<List<Property>> getByStore(@PathVariable Long storeId) {
-        return ResponseEntity.ok(propertyService.getPropertiesByStore(storeId));
-    }
+
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
