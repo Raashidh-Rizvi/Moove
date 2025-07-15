@@ -31,6 +31,8 @@ public class User {
     private String userEmail;
     private String userPhone;
     private String userAddress;
+    private String userPassword;
+    private String userRole;
 
 
     public User() {
