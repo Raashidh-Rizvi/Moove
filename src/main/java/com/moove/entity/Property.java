@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Collection;
+
 @AllArgsConstructor
 @Entity
 @Getter
@@ -14,7 +16,7 @@ public class Property {
 
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
-        private int propertyId;
+        private long propertyId;
 
         @ManyToOne
         @JoinColumn
@@ -37,5 +39,16 @@ public class Property {
 
         public Property() {
 
+        }
+
+        @OneToMany(mappedBy = "property")
+        private Collection<Review> review;
+
+        public Collection<Review> getReview() {
+                return review;
+        }
+
+        public void setReview(Collection<Review> review) {
+                this.review = review;
         }
 }
