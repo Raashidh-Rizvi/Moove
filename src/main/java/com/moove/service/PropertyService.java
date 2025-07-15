@@ -1,6 +1,6 @@
 package com.moove.service;
 
-import com.moove.model.Property;
+import com.moove.entity.Property;
 import com.moove.repository.PropertyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -21,10 +21,6 @@ public class PropertyService {
 
     public List<Property> getAllProperties() {
         return propertyRepository.findAll();
-    }
-
-    public List<Property> getPropertiesByStore(Long storeId) {
-        return propertyRepository.findPropertyByStoreId(storeId);
     }
 
     public Optional<Property> getPropertyById(Long propertyId) {

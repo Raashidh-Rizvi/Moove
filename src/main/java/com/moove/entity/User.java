@@ -1,4 +1,4 @@
-package com.moove.model;
+package com.moove.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -9,7 +9,7 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-@Table(name = "users")
+
 
 public class User {
 
@@ -20,9 +20,6 @@ public class User {
     private String userEmail;
     private String userPhone;
     private String userAddress;
-    @ManyToOne
-    @JoinColumn
-    private Store store;
 
 
     public User() {

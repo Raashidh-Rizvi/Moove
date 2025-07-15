@@ -1,4 +1,4 @@
-package com.moove.model;
+package com.moove.entity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -30,7 +30,7 @@ public class Booking {
     private Date checkOutDate;
     private boolean checkedByOwner;
     private boolean conformedByOwner;
-    private String bookingStatus;
+    private String status;
 
 
 

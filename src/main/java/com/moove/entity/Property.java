@@ -1,4 +1,4 @@
-package com.moove.model;
+package com.moove.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -9,15 +9,15 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-@Table(name = "properties")
+
 public class Property {
 
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         private int propertyId;
         @ManyToOne
-        @JoinColumn(name = "store_Id")
-        private Store store;
+        @JoinColumn
+        private User user;
 
         @Id @GeneratedValue
         private Long id;

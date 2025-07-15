@@ -1,7 +1,7 @@
 package com.moove.controller;
 
 
-import com.moove.model.User;
+import com.moove.entity.User;
 import com.moove.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
