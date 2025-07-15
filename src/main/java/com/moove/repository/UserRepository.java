@@ -2,7 +2,7 @@
 package com.moove.repository;
 
 
-import com.moove.model.User;
+import com.moove.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

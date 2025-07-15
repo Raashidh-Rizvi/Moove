@@ -1,7 +1,7 @@
 package com.moove.service;
 
 
-import com.moove.model.User;
+import com.moove.entity.User;
 import com.moove.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
