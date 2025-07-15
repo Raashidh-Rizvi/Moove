@@ -1,8 +1,6 @@
 package com.moove.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -18,10 +16,13 @@ public class User {
     @Id
     private String userId;
 
-    private String userName;
+    private String username;
     private String userEmail;
     private String userPhone;
     private String userAddress;
+    @ManyToOne
+    @JoinColumn
+    private Store store;
 
 
     public User() {
