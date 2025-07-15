@@ -1,5 +1,6 @@
-package com.moove.model;
+package com.moove;
 
+import com.moove.entity.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,7 +10,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-@Table(name = "stores")
+
 public class Store {
 
     @Id
@@ -18,7 +19,7 @@ public class Store {
 
     // Assuming one user owns many shops
     @ManyToOne
-    @JoinColumn(name = "user_Id")
+    @JoinColumn
     private User user;
 
     private String storeName;
