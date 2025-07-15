@@ -1,4 +1,4 @@
-package com.moove.contoller;
+package com.moove.controller;
 
 
 import com.moove.model.Property;
