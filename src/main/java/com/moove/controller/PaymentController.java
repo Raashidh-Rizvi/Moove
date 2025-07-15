@@ -3,11 +3,12 @@ package com.moove.controller;
 import com.moove.entity.Payment;
 import com.moove.service.PaymentService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
+@Controller
 @RequestMapping("/api/payments")
 @RequiredArgsConstructor
 public class PaymentController {

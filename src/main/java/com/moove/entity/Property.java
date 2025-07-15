@@ -15,12 +15,11 @@ public class Property {
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         private int propertyId;
+
         @ManyToOne
         @JoinColumn
         private User user;
 
-        @Id @GeneratedValue
-        private Long id;
 
         private String propertyName;
         private String description;

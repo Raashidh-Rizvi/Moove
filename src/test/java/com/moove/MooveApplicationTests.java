@@ -1,4 +1,4 @@
-package org.example.moove;
+package com.moove;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
