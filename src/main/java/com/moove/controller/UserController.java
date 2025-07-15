@@ -53,12 +53,6 @@ public class UserController {
         return user.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
 
-    // Get all users by storeId (if applicable)
-    @GetMapping("/store/{storeId}")
-    public ResponseEntity<List<User>> getUsersByStoreId(@PathVariable("storeId") Long storeId) {
-        List<User> users = userService.getUsersByStoreId(storeId);
-        return ResponseEntity.ok(users);
-    }
 
     // Add or update a user
     @PostMapping
@@ -69,7 +63,7 @@ public class UserController {
 
     // Delete a user by ID
     @DeleteMapping("/{userId}")
-    public ResponseEntity<String> deleteUser(@PathVariable("userId") Long userId) {
+    public ResponseEntity<String> deleteUser(@PathVariable("userId") String userId) {
         userService.deleteUser(userId);
         return ResponseEntity.ok("User deleted successfully.");
     }

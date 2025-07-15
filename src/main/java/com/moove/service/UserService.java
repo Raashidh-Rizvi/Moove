@@ -39,19 +39,13 @@ public class UserService {
     public Optional<User> getUserByUsername(String username) {
         return userRepository.findUserByUsername(username).stream().findFirst();
     }
-
-    // Get users by storeId (if store relation exists)
-    public List<User> getUsersByStoreId(Long storeId) {
-        return userRepository.findUserByStore_StoreId(storeId);
-    }
-
     // Save or update user
     public User saveUser(User user) {
         return userRepository.save(user);
     }
 
     // Delete user by ID
-    public void deleteUser(Long userId) {
+    public void deleteUser(String userId) {
         userRepository.deleteById(userId);
     }
 }

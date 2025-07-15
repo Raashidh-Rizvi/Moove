@@ -2,16 +2,17 @@ package com.moove.controller;
 
 import com.moove.entity.Message;
 import com.moove.service.MessageService;
-import lombok.RequiredArgsConstructor;
+import lombok.AllArgsConstructor;
+
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/messages")
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class MessageController {
-    private final MessageService messageService;
+    private MessageService messageService;
 
     @GetMapping("/conversation")
     public List<Message> getConversation(

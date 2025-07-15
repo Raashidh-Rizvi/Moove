@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Collection;
+
 @AllArgsConstructor
 @Entity
 @Getter
@@ -14,29 +16,32 @@ public class Property {
 
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
-        private int propertyId;
+        private long propertyId;
+
         @ManyToOne
-        @JoinColumn
+        @JoinColumn(name = "user_Id", nullable = false)
         private User user;
 
-        @Id @GeneratedValue
-        private Long id;
 
         private String propertyName;
-        private String description;
-        private double price;
-        private String type; // APARTMENT, HOUSE, ROOM
-        private double size; // in sqft or sqm
-        private int bedrooms;
-        private int bathrooms;
+        private String propertyDescription;
+        private double propertyPrice=0;
+        private String propertyType; // APARTMENT, HOUSE, ROOM
+        private double propertySize=0; // in sqft or sqm
+        private int bedroomsAvailable=0;
+        private int bathroomsAvailable=0;
 
 
         @Lob
-        private String imageUrl;
-        private String propertyFeedback;
+        private String propertyImageUrl;
+        private String propertyReview;
 
 
         public Property() {
 
         }
+
+        @OneToMany(mappedBy = "property")
+        private Collection<Review> review;
+
 }
