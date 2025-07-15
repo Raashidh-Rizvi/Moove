@@ -11,14 +11,14 @@ import java.util.Date;
 @Getter
 @Setter
 @AllArgsConstructor
-@Table(name = "bookings")
+
 public class Booking {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int bookingId;
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id")
+    @JoinColumn
     private User user;
 
 
