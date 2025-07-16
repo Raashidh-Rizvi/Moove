@@ -1,0 +1,23 @@
+{
+  "name": "moove-rental-platform",
+  "version": "1.0.0",
+  "description": "Premium property rental platform for Sri Lanka",
+  "main": "index.html",
+  "scripts": {
+    "start": "python -m http.server 3000",
+    "build": "echo 'Static HTML/CSS/JS build - copying files' && mkdir -p dist && cp -r *.html css js dist/",
+    "dev": "python -m http.server 3000",
+    "serve": "python -m http.server 3000"
+  },
+  "keywords": [
+    "property",
+    "rental",
+    "real-estate",
+    "sri-lanka",
+    "booking"
+  ],
+  "author": "Moove Team",
+  "license": "MIT",
+  "devDependencies": {},
+  "dependencies": {}
+}
