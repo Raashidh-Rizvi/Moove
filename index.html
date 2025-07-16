@@ -6,116 +6,107 @@
     <title>Moove - Premium Property Rentals in Sri Lanka</title>
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/components.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
     <!-- Navigation -->
     <nav class="navbar">
         <div class="nav-container">
             <div class="nav-brand">
-                <img src="https://images.pexels.com/photos/1370704/pexels-photo-1370704.jpeg?auto=compress&cs=tinysrgb&w=50&h=50&fit=crop" alt="Moove Logo" class="logo">
-                <span class="brand-name">Moove</span>
+                <h2>Moove</h2>
             </div>
-            
-            <div class="nav-menu" id="nav-menu">
+            <div class="nav-menu">
                 <a href="#home" class="nav-link active">Home</a>
                 <a href="#properties" class="nav-link">Properties</a>
                 <a href="#about" class="nav-link">About</a>
                 <a href="#contact" class="nav-link">Contact</a>
-                <div class="nav-auth">
-                    <button class="btn-secondary" onclick="openModal('loginModal')">Login</button>
-                    <button class="btn-primary" onclick="openModal('registerModal')">Sign Up</button>
-                </div>
             </div>
-            
-            <div class="nav-toggle" id="nav-toggle">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
+            <div class="nav-actions">
+                <button class="btn-secondary" onclick="showLoginModal()">Login</button>
+                <button class="btn-primary" onclick="showRegisterModal()">Sign Up</button>
+                <div class="user-menu" id="userMenu" style="display: none;">
+                    <button class="user-avatar" onclick="toggleUserDropdown()">
+                        <i class="fas fa-user"></i>
+                    </button>
+                    <div class="user-dropdown" id="userDropdown">
+                        <a href="#" onclick="showDashboard()">Dashboard</a>
+                        <a href="#" onclick="showProfile()">Profile</a>
+                        <a href="#" onclick="logout()">Logout</a>
+                    </div>
+                </div>
             </div>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <section id="home" class="hero">
+    <section class="hero" id="home">
         <div class="hero-content">
-            <h1 class="hero-title">Find Your Perfect Home in Sri Lanka</h1>
-            <p class="hero-subtitle">Discover premium rental properties across all 25 districts with verified landlords and seamless booking</p>
-            
-            <!-- Search Bar -->
-            <div class="search-container">
+            <div class="hero-text">
+                <h1>Find Your Perfect<br><span class="highlight">Rental Property</span></h1>
+                <p>Discover premium rental properties across Sri Lanka with our trusted platform. From modern apartments to luxury villas.</p>
+                <div class="hero-actions">
+                    <button class="btn-primary large" onclick="scrollToProperties()">Browse Properties</button>
+                    <button class="btn-secondary large" onclick="showAddPropertyModal()">List Property</button>
+                </div>
+            </div>
+            <div class="hero-image">
+                <img src="https://images.pexels.com/photos/1396122/pexels-photo-1396122.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Modern Property">
+            </div>
+        </div>
+        
+        <!-- Search Bar -->
+        <div class="search-container">
+            <div class="search-bar">
                 <div class="search-field">
                     <i class="fas fa-map-marker-alt"></i>
-                    <select id="districtSelect" class="search-input">
+                    <select id="searchDistrict" onchange="updateSearchTowns()">
                         <option value="">Select District</option>
                     </select>
                 </div>
                 <div class="search-field">
                     <i class="fas fa-city"></i>
-                    <select id="townSelect" class="search-input" disabled>
+                    <select id="searchTown">
                         <option value="">Select Town</option>
                     </select>
                 </div>
                 <div class="search-field">
                     <i class="fas fa-home"></i>
-                    <select class="search-input">
+                    <select id="searchType">
                         <option value="">Property Type</option>
-                        <option value="APARTMENT">Apartment</option>
-                        <option value="HOUSE">House</option>
-                        <option value="ROOM">Room</option>
+                        <option value="apartment">Apartment</option>
+                        <option value="house">House</option>
+                        <option value="room">Room</option>
+                        <option value="villa">Villa</option>
                     </select>
                 </div>
-                <button class="btn-search">
-                    <i class="fas fa-search"></i>
-                    Search
+                <div class="search-field">
+                    <i class="fas fa-dollar-sign"></i>
+                    <input type="number" placeholder="Max Price" id="searchPrice">
+                </div>
+                <button class="btn-primary" onclick="searchProperties()">
+                    <i class="fas fa-search"></i> Search
                 </button>
             </div>
-        </div>
-        <div class="hero-image">
-            <img src="https://images.pexels.com/photos/1396122/pexels-photo-1396122.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Beautiful Sri Lankan Property">
         </div>
     </section>
 
     <!-- Properties Section -->
-    <section id="properties" class="properties-section">
+    <section class="properties-section" id="properties">
         <div class="container">
             <div class="section-header">
                 <h2>Featured Properties</h2>
-                <p>Handpicked premium properties across Sri Lanka</p>
+                <p>Discover our handpicked selection of premium rental properties</p>
             </div>
             
-            <!-- Filters -->
             <div class="filters">
-                <div class="filter-group">
-                    <label>Price Range</label>
-                    <div class="price-range">
-                        <input type="range" id="priceRange" min="0" max="200000" value="100000">
-                        <span id="priceValue">LKR 100,000</span>
-                    </div>
-                </div>
-                <div class="filter-group">
-                    <label>Bedrooms</label>
-                    <select id="bedroomFilter">
-                        <option value="">Any</option>
-                        <option value="1">1+</option>
-                        <option value="2">2+</option>
-                        <option value="3">3+</option>
-                        <option value="4">4+</option>
-                    </select>
-                </div>
-                <div class="filter-group">
-                    <label>Bathrooms</label>
-                    <select id="bathroomFilter">
-                        <option value="">Any</option>
-                        <option value="1">1+</option>
-                        <option value="2">2+</option>
-                        <option value="3">3+</option>
-                    </select>
-                </div>
+                <button class="filter-btn active" onclick="filterProperties('all')">All</button>
+                <button class="filter-btn" onclick="filterProperties('apartment')">Apartments</button>
+                <button class="filter-btn" onclick="filterProperties('house')">Houses</button>
+                <button class="filter-btn" onclick="filterProperties('room')">Rooms</button>
+                <button class="filter-btn" onclick="filterProperties('villa')">Villas</button>
             </div>
-            
-            <!-- Properties Grid -->
+
             <div class="properties-grid" id="propertiesGrid">
                 <!-- Properties will be loaded here -->
             </div>
@@ -127,89 +118,101 @@
     </section>
 
     <!-- About Section -->
-    <section id="about" class="about-section">
+    <section class="about-section" id="about">
         <div class="container">
             <div class="about-content">
                 <div class="about-text">
                     <h2>Why Choose Moove?</h2>
-                    <p>We're revolutionizing property rentals in Sri Lanka with our premium platform that connects verified landlords with quality tenants.</p>
+                    <p>We're Sri Lanka's most trusted property rental platform, connecting landlords and tenants with ease and security.</p>
                     
-                    <div class="features">
+                    <div class="features-grid">
                         <div class="feature">
-                            <i class="fas fa-shield-alt"></i>
-                            <div>
-                                <h3>Verified Properties</h3>
-                                <p>All properties are verified and inspected for quality assurance</p>
+                            <div class="feature-icon">
+                                <i class="fas fa-shield-alt"></i>
                             </div>
+                            <h3>Verified Properties</h3>
+                            <p>All properties are verified and inspected for quality and authenticity.</p>
                         </div>
                         <div class="feature">
-                            <i class="fas fa-handshake"></i>
-                            <div>
-                                <h3>Trusted Landlords</h3>
-                                <p>Background-checked landlords with proven track records</p>
+                            <div class="feature-icon">
+                                <i class="fas fa-handshake"></i>
                             </div>
+                            <h3>Trusted Platform</h3>
+                            <p>Secure transactions and reliable service you can count on.</p>
                         </div>
                         <div class="feature">
-                            <i class="fas fa-mobile-alt"></i>
-                            <div>
-                                <h3>Easy Booking</h3>
-                                <p>Seamless booking process with instant confirmations</p>
+                            <div class="feature-icon">
+                                <i class="fas fa-clock"></i>
                             </div>
+                            <h3>24/7 Support</h3>
+                            <p>Round-the-clock customer support for all your needs.</p>
+                        </div>
+                        <div class="feature">
+                            <div class="feature-icon">
+                                <i class="fas fa-mobile-alt"></i>
+                            </div>
+                            <h3>Easy Booking</h3>
+                            <p>Simple and quick booking process from any device.</p>
                         </div>
                     </div>
                 </div>
                 <div class="about-image">
-                    <img src="https://images.pexels.com/photos/1643383/pexels-photo-1643383.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Modern Sri Lankan Home">
+                    <img src="https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Happy Family">
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Contact Section -->
-    <section id="contact" class="contact-section">
+    <section class="contact-section" id="contact">
         <div class="container">
-            <div class="section-header">
-                <h2>Get in Touch</h2>
-                <p>Have questions? We're here to help you find your perfect home</p>
-            </div>
-            
             <div class="contact-content">
                 <div class="contact-info">
-                    <div class="contact-item">
-                        <i class="fas fa-phone"></i>
-                        <div>
-                            <h3>Phone</h3>
-                            <p>+94 11 234 5678</p>
+                    <h2>Get in Touch</h2>
+                    <p>Have questions? We're here to help you find your perfect rental property.</p>
+                    
+                    <div class="contact-details">
+                        <div class="contact-item">
+                            <i class="fas fa-phone"></i>
+                            <div>
+                                <h4>Phone</h4>
+                                <p>+94 11 234 5678</p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="contact-item">
-                        <i class="fas fa-envelope"></i>
-                        <div>
-                            <h3>Email</h3>
-                            <p>hello@moove.lk</p>
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <div>
+                                <h4>Email</h4>
+                                <p>info@moove.lk</p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="contact-item">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <div>
-                            <h3>Address</h3>
-                            <p>123 Galle Road, Colombo 03, Sri Lanka</p>
+                        <div class="contact-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <div>
+                                <h4>Address</h4>
+                                <p>123 Galle Road, Colombo 03, Sri Lanka</p>
+                            </div>
                         </div>
                     </div>
                 </div>
                 
-                <form class="contact-form" onsubmit="submitContactForm(event)">
-                    <div class="form-group">
-                        <input type="text" placeholder="Your Name" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="email" placeholder="Your Email" required>
-                    </div>
-                    <div class="form-group">
-                        <textarea placeholder="Your Message" rows="5" required></textarea>
-                    </div>
-                    <button type="submit" class="btn-primary">Send Message</button>
-                </form>
+                <div class="contact-form">
+                    <form onsubmit="submitContactForm(event)">
+                        <div class="form-group">
+                            <input type="text" placeholder="Your Name" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" placeholder="Your Email" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" placeholder="Subject" required>
+                        </div>
+                        <div class="form-group">
+                            <textarea placeholder="Your Message" rows="5" required></textarea>
+                        </div>
+                        <button type="submit" class="btn-primary">Send Message</button>
+                    </form>
+                </div>
             </div>
         </div>
     </section>
@@ -219,257 +222,258 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-section">
-                    <div class="footer-brand">
-                        <img src="https://images.pexels.com/photos/1370704/pexels-photo-1370704.jpeg?auto=compress&cs=tinysrgb&w=50&h=50&fit=crop" alt="Moove Logo" class="footer-logo">
-                        <span class="footer-brand-name">Moove</span>
-                    </div>
-                    <p class="footer-tagline">Your trusted property rental platform</p>
+                    <h3>Moove</h3>
+                    <p>Your trusted property rental platform in Sri Lanka.</p>
                     <div class="social-links">
                         <a href="#"><i class="fab fa-facebook"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
                         <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
                         <a href="#"><i class="fab fa-linkedin"></i></a>
                     </div>
                 </div>
-                
                 <div class="footer-section">
-                    <h3>For Tenants</h3>
+                    <h4>For Tenants</h4>
                     <ul>
-                        <li><a href="#properties">Browse Properties</a></li>
-                        <li><a href="#how-it-works">How It Works</a></li>
-                        <li><a href="#tenant-guide">Tenant Guide</a></li>
-                        <li><a href="#help">Help Center</a></li>
+                        <li><a href="#">Browse Properties</a></li>
+                        <li><a href="#">How It Works</a></li>
+                        <li><a href="#">Tenant Guide</a></li>
+                        <li><a href="#">Support</a></li>
                     </ul>
                 </div>
-                
                 <div class="footer-section">
-                    <h3>For Landlords</h3>
+                    <h4>For Landlords</h4>
                     <ul>
-                        <li><a href="#" onclick="openModal('loginModal')">List Property</a></li>
-                        <li><a href="#landlord-resources">Landlord Resources</a></li>
-                        <li><a href="#property-management">Property Management</a></li>
-                        <li><a href="#pricing">Pricing</a></li>
+                        <li><a href="#">List Property</a></li>
+                        <li><a href="#">Landlord Resources</a></li>
+                        <li><a href="#">Property Management</a></li>
+                        <li><a href="#">Pricing</a></li>
                     </ul>
                 </div>
-                
                 <div class="footer-section">
-                    <h3>Support</h3>
+                    <h4>Legal</h4>
                     <ul>
-                        <li><a href="#contact">Contact Us</a></li>
-                        <li><a href="#faq">FAQ</a></li>
-                        <li><a href="#terms">Terms of Service</a></li>
-                        <li><a href="#privacy">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Cookie Policy</a></li>
+                        <li><a href="#">FAQ</a></li>
                     </ul>
                 </div>
             </div>
-            
             <div class="footer-bottom">
-                <p>&copy; 2025 Moove. All rights reserved.</p>
-                <div class="footer-links">
-                    <a href="#terms">Terms</a>
-                    <a href="#privacy">Privacy</a>
-                    <a href="#cookies">Cookies</a>
-                </div>
+                <p>&copy; 2024 Moove. All rights reserved.</p>
             </div>
         </div>
     </footer>
 
     <!-- Modals -->
-    <!-- Login Modal -->
     <div id="loginModal" class="modal">
         <div class="modal-content">
-            <div class="modal-header">
-                <h2>Welcome Back</h2>
-                <span class="close" onclick="closeModal('loginModal')">&times;</span>
-            </div>
-            <form class="auth-form" onsubmit="handleLogin(event)">
+            <span class="close" onclick="closeModal('loginModal')">&times;</span>
+            <h2>Login to Moove</h2>
+            <form onsubmit="handleLogin(event)">
                 <div class="form-group">
-                    <label>Email or Username</label>
-                    <input type="text" id="loginEmail" required>
+                    <input type="email" placeholder="Email" required>
                 </div>
                 <div class="form-group">
-                    <label>Password</label>
-                    <input type="password" id="loginPassword" required>
+                    <input type="password" placeholder="Password" required>
                 </div>
-                <button type="submit" class="btn-primary btn-full">Login</button>
-                <div class="auth-links">
-                    <a href="#" onclick="openModal('registerModal'); closeModal('loginModal')">Don't have an account? Sign up</a>
+                <div class="form-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox"> Remember me
+                    </label>
                 </div>
+                <button type="submit" class="btn-primary full-width">Login</button>
             </form>
+            <p class="modal-footer">Don't have an account? <a href="#" onclick="switchModal('loginModal', 'registerModal')">Sign up</a></p>
         </div>
     </div>
 
-    <!-- Register Modal -->
     <div id="registerModal" class="modal">
         <div class="modal-content">
-            <div class="modal-header">
-                <h2>Create Account</h2>
-                <span class="close" onclick="closeModal('registerModal')">&times;</span>
-            </div>
-            <form class="auth-form" onsubmit="handleRegister(event)">
+            <span class="close" onclick="closeModal('registerModal')">&times;</span>
+            <h2>Join Moove</h2>
+            <form onsubmit="handleRegister(event)">
                 <div class="form-group">
-                    <label>Full Name</label>
-                    <input type="text" id="registerName" required>
+                    <input type="text" placeholder="Full Name" required>
                 </div>
                 <div class="form-group">
-                    <label>Username</label>
-                    <input type="text" id="registerUsername" required>
+                    <input type="email" placeholder="Email" required>
                 </div>
                 <div class="form-group">
-                    <label>Email</label>
-                    <input type="email" id="registerEmail" required>
+                    <input type="tel" placeholder="Phone Number" required>
                 </div>
                 <div class="form-group">
-                    <label>Phone</label>
-                    <input type="tel" id="registerPhone" required>
-                </div>
-                <div class="form-group">
-                    <label>Address</label>
-                    <input type="text" id="registerAddress" required>
-                </div>
-                <div class="form-group">
-                    <label>Password</label>
-                    <input type="password" id="registerPassword" required>
-                </div>
-                <div class="form-group">
-                    <label>User Type</label>
-                    <select id="registerRole" required>
-                        <option value="">Select Role</option>
-                        <option value="TENANT">Tenant</option>
-                        <option value="LANDLORD">Landlord</option>
+                    <select required>
+                        <option value="">Select User Type</option>
+                        <option value="tenant">Tenant</option>
+                        <option value="landlord">Landlord</option>
                     </select>
                 </div>
-                <button type="submit" class="btn-primary btn-full">Create Account</button>
-                <div class="auth-links">
-                    <a href="#" onclick="openModal('loginModal'); closeModal('registerModal')">Already have an account? Login</a>
+                <div class="form-group">
+                    <input type="password" placeholder="Password" required>
                 </div>
+                <div class="form-group">
+                    <input type="password" placeholder="Confirm Password" required>
+                </div>
+                <button type="submit" class="btn-primary full-width">Create Account</button>
             </form>
+            <p class="modal-footer">Already have an account? <a href="#" onclick="switchModal('registerModal', 'loginModal')">Login</a></p>
         </div>
     </div>
 
     <!-- Property Details Modal -->
     <div id="propertyModal" class="modal">
-        <div class="modal-content modal-large">
-            <div class="modal-header">
-                <h2 id="propertyModalTitle">Property Details</h2>
-                <span class="close" onclick="closeModal('propertyModal')">&times;</span>
-            </div>
-            <div id="propertyModalContent">
+        <div class="modal-content large">
+            <span class="close" onclick="closeModal('propertyModal')">&times;</span>
+            <div id="propertyDetails">
                 <!-- Property details will be loaded here -->
             </div>
         </div>
     </div>
 
-    <!-- Booking Modal -->
-    <div id="bookingModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2>Book Property</h2>
-                <span class="close" onclick="closeModal('bookingModal')">&times;</span>
-            </div>
-            <form class="booking-form" onsubmit="handleBooking(event)">
-                <div class="form-group">
-                    <label>Check-in Date</label>
-                    <input type="date" id="checkinDate" required>
-                </div>
-                <div class="form-group">
-                    <label>Check-out Date</label>
-                    <input type="date" id="checkoutDate" required>
-                </div>
-                <div class="form-group">
-                    <label>Check-in Time</label>
-                    <input type="time" id="checkinTime" required>
-                </div>
-                <div class="form-group">
-                    <label>Check-out Time</label>
-                    <input type="time" id="checkoutTime" required>
-                </div>
-                <div class="form-group">
-                    <label>Message to Landlord</label>
-                    <textarea id="bookingMessage" rows="3" placeholder="Any special requests or questions..."></textarea>
-                </div>
-                <div class="booking-summary">
-                    <div class="summary-item">
-                        <span>Total Amount:</span>
-                        <span id="totalAmount">LKR 0</span>
+    <!-- Add Property Modal -->
+    <div id="addPropertyModal" class="modal">
+        <div class="modal-content large">
+            <span class="close" onclick="closeModal('addPropertyModal')">&times;</span>
+            <h2>Add New Property</h2>
+            <form onsubmit="handleAddProperty(event)">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Property Title</label>
+                        <input type="text" name="title" placeholder="e.g., Modern 2BR Apartment" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Property Type</label>
+                        <select name="type" required>
+                            <option value="">Select Type</option>
+                            <option value="apartment">Apartment</option>
+                            <option value="house">House</option>
+                            <option value="room">Room</option>
+                            <option value="villa">Villa</option>
+                            <option value="studio">Studio</option>
+                        </select>
                     </div>
                 </div>
-                <button type="submit" class="btn-primary btn-full">Submit Booking Request</button>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>District</label>
+                        <select name="district" id="propertyDistrict" onchange="updatePropertyTowns()" required>
+                            <option value="">Select District</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Town</label>
+                        <select name="town" id="propertyTown" required>
+                            <option value="">Select Town</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Address</label>
+                    <textarea name="address" placeholder="Full address" required></textarea>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Bedrooms</label>
+                        <input type="number" name="bedrooms" min="0" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Bathrooms</label>
+                        <input type="number" name="bathrooms" min="1" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Size (sq ft)</label>
+                        <input type="number" name="size" min="1" required>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Monthly Rent (LKR)</label>
+                        <input type="number" name="price" min="1" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Availability</label>
+                        <select name="availability" required>
+                            <option value="available">Available</option>
+                            <option value="occupied">Occupied</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Description</label>
+                    <textarea name="description" placeholder="Describe your property..." required></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label>Property Images</label>
+                    <div class="image-upload-area" onclick="document.getElementById('propertyImages').click()">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <p>Click to upload images or drag and drop</p>
+                        <small>Support: JPG, PNG, WebP (Max 5 images, 2MB each)</small>
+                    </div>
+                    <input type="file" id="propertyImages" name="images" multiple accept="image/*" style="display: none;" onchange="handleImageUpload(event)">
+                    <div id="imagePreview" class="image-preview"></div>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="button" class="btn-secondary" onclick="closeModal('addPropertyModal')">Cancel</button>
+                    <button type="submit" class="btn-primary">Add Property</button>
+                </div>
             </form>
         </div>
     </div>
 
-    <!-- User Dashboard (Hidden by default) -->
-    <div id="userDashboard" class="dashboard" style="display: none;">
+    <!-- Dashboard -->
+    <div id="dashboard" class="dashboard" style="display: none;">
         <div class="dashboard-sidebar">
-            <div class="dashboard-user">
-                <img id="userAvatar" src="https://images.pexels.com/photos/1043471/pexels-photo-1043471.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop" alt="User Avatar">
-                <div class="user-info">
-                    <h3 id="userName">User Name</h3>
-                    <p id="userRole">Role</p>
-                </div>
+            <div class="dashboard-brand">
+                <h3>Moove Dashboard</h3>
             </div>
-            
             <nav class="dashboard-nav">
                 <a href="#" class="nav-item active" onclick="showDashboardSection('overview')">
-                    <i class="fas fa-tachometer-alt"></i>
-                    Overview
+                    <i class="fas fa-tachometer-alt"></i> Overview
+                </a>
+                <a href="#" class="nav-item" onclick="showDashboardSection('properties')">
+                    <i class="fas fa-home"></i> My Properties
+                </a>
+                <a href="#" class="nav-item" onclick="showDashboardSection('bookings')">
+                    <i class="fas fa-calendar"></i> Bookings
+                </a>
+                <a href="#" class="nav-item" onclick="showDashboardSection('messages')">
+                    <i class="fas fa-envelope"></i> Messages
                 </a>
                 <a href="#" class="nav-item" onclick="showDashboardSection('profile')">
-                    <i class="fas fa-user"></i>
-                    Profile
-                </a>
-                <div id="landlordNav" style="display: none;">
-                    <a href="#" class="nav-item" onclick="showDashboardSection('properties')">
-                        <i class="fas fa-home"></i>
-                        My Properties
-                    </a>
-                    <a href="#" class="nav-item" onclick="showDashboardSection('add-property')">
-                        <i class="fas fa-plus"></i>
-                        Add Property
-                    </a>
-                    <a href="#" class="nav-item" onclick="showDashboardSection('bookings')">
-                        <i class="fas fa-calendar"></i>
-                        Booking Requests
-                    </a>
-                </div>
-                <div id="tenantNav" style="display: none;">
-                    <a href="#" class="nav-item" onclick="showDashboardSection('my-bookings')">
-                        <i class="fas fa-calendar-check"></i>
-                        My Bookings
-                    </a>
-                    <a href="#" class="nav-item" onclick="showDashboardSection('favorites')">
-                        <i class="fas fa-heart"></i>
-                        Favorites
-                    </a>
-                </div>
-                <a href="#" class="nav-item" onclick="showDashboardSection('messages')">
-                    <i class="fas fa-envelope"></i>
-                    Messages
-                    <span class="badge" id="messageCount">0</span>
-                </a>
-                <a href="#" class="nav-item" onclick="logout()">
-                    <i class="fas fa-sign-out-alt"></i>
-                    Logout
+                    <i class="fas fa-user"></i> Profile
                 </a>
             </nav>
         </div>
         
-        <div class="dashboard-content">
+        <div class="dashboard-main">
             <div class="dashboard-header">
-                <h1 id="dashboardTitle">Dashboard</h1>
-                <button class="btn-secondary" onclick="closeDashboard()">
-                    <i class="fas fa-times"></i>
-                    Close Dashboard
+                <h1>Dashboard</h1>
+                <button class="btn-secondary" onclick="hideDashboard()">
+                    <i class="fas fa-times"></i> Close
                 </button>
             </div>
             
-            <div id="dashboardSections">
-                <!-- Dashboard sections will be loaded here -->
+            <div id="dashboardContent">
+                <!-- Dashboard content will be loaded here -->
             </div>
         </div>
     </div>
 
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="loading-overlay" style="display: none;">
+        <div class="loading-spinner"></div>
+        <p>Loading...</p>
+    </div>
+
+    <!-- Scripts -->
     <script src="js/data.js"></script>
     <script src="js/api.js"></script>
     <script src="js/auth.js"></script>
