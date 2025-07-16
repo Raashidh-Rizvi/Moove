@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { User, Property, Review, Booking, Message } from '../types';
+import { BookingRequest } from '../types/booking';
 
 const API_BASE_URL = 'http://localhost:8080/moove/api';
 
@@ -43,6 +44,15 @@ export const bookingApi = {
   getBookingById: (id: number) => api.get<Booking>(`/bookings/${id}`),
   createBooking: (booking: Omit<Booking, 'bookingId'>) => api.post<Booking>('/bookings', booking),
   cancelBooking: (id: number) => api.put(`/bookings/cancel/${id}`),
+  
+  // Booking Request endpoints
+  getAllBookingRequests: () => api.get<BookingRequest[]>('/booking-requests'),
+  getBookingRequestById: (id: number) => api.get<BookingRequest>(`/booking-requests/${id}`),
+  createBookingRequest: (request: Omit<BookingRequest, 'id' | 'createdAt' | 'updatedAt'>) => 
+    api.post<BookingRequest>('/booking-requests', request),
+  updateBookingRequestStatus: (id: number, status: BookingRequest['status']) => 
+    api.put(`/booking-requests/${id}/status`, { status }),
+  cancelBookingRequest: (id: number) => api.put(`/booking-requests/${id}/cancel`),
 };
 
 // Message API

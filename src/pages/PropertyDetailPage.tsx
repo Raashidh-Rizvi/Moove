@@ -4,6 +4,7 @@ import { MapPin, Bed, Bath, Square, Star, Calendar, MessageCircle, ArrowLeft, He
 import { Property, Review } from '../types';
 import { propertyApi, reviewApi } from '../services/api';
 import { useAuth } from '../context/AuthContext';
+import BookingRequestModal from '../components/BookingRequestModal';
 
 const PropertyDetailPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -48,7 +49,9 @@ const PropertyDetailPage: React.FC = () => {
       navigate('/login');
       return;
     }
-    setShowBookingModal(true);
+    if (property) {
+      setShowBookingModal(true);
+    }
   };
 
   const handleContactOwner = () => {
@@ -284,33 +287,17 @@ const PropertyDetailPage: React.FC = () => {
         </div>
       </div>
 
-      {/* Booking Modal */}
-      {showBookingModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white rounded-xl p-6 max-w-md w-full mx-4">
-            <h3 className="text-lg font-semibold mb-4">Book Property</h3>
-            <p className="text-gray-600 mb-4">
-              Contact the property owner to discuss booking details and availability.
-            </p>
-            <div className="flex space-x-3">
-              <button
-                onClick={() => setShowBookingModal(false)}
-                className="flex-1 btn-secondary"
-              >
-                Cancel
-              </button>
-              <button
-                onClick={() => {
-                  setShowBookingModal(false);
-                  handleContactOwner();
-                }}
-                className="flex-1 btn-primary"
-              >
-                Contact Owner
-              </button>
-            </div>
-          </div>
-        </div>
+      {/* Booking Request Modal */}
+      {property && (
+        <BookingRequestModal
+          property={property}
+          isOpen={showBookingModal}
+          onClose={() => setShowBookingModal(false)}
+          onSuccess={() => {
+            // Handle successful booking request
+            navigate('/bookings');
+          }}
+        />
       )}
     </div>
   );
